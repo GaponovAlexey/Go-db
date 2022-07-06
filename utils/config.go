@@ -4,26 +4,32 @@ import (
 	"github.com/spf13/viper"
 )
 
+// type Dbconfig struct {
+// 	Address  string `mapstructure:"address"`
+// 	Port     string `mapstructure:"port"`
+// 	Password string `mapstructure:"password"`
+// 	User     string `mapstructure:"user"`
+// }
+
+// type ServerConfig struct {
+// 	Port string `mapstructure:"port"`
+// }
+
+// type Config struct {
+// 	Db     Dbconfig     `mapstructure:"db"`
+// 	Server ServerConfig `mapstructure:"server"`
+// }
+
 type Dbconfig struct {
-	Address  string `mapstructure:"address"`
-	Port     string `mapstructure:"port"`
-	Password string `mapstructure:"password"`
-	User     string `mapstructure:"user"`
+	Address string `map:"address"`
+	Port    string `map:"port"`
 }
-
-type ServerConfig struct {
-	Port string `mapstructure:"port"`
-}
-
 type Config struct {
-	Db     Dbconfig     `mapstructure:"db"`
-	Server ServerConfig `mapstructure:"server"`
+	DB Dbconfig `map:"db"`
 }
-
-var vp *viper.Viper
 
 func LoadConfig() (Config, error) {
-	vp = viper.New()
+	vp := viper.New()
 	var config Config
 	vp.SetConfigName("config")
 	vp.SetConfigType("json")

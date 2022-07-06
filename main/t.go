@@ -3,11 +3,14 @@ package main
 import (
 	"conect-db/utils"
 	"fmt"
-	// "github.com/fsnotify/fsnotify"
-	// "github.com/spf13/viper"
+	"log"
+
+	"github.com/fsnotify/fsnotify"
+	"github.com/spf13/viper"
 )
 
 func main() {
+
 	fmt.Println("start")
 
 	config, err := utils.LoadConfig()
@@ -17,29 +20,28 @@ func main() {
 	}
 	fmt.Println(config)
 
-	// vp := viper.New()
-	// vp.SetConfigName("test")
-	// vp.SetConfigType("json")
-	// vp.AddConfigPath(".")
+	vp := viper.New()
+	vp.SetConfigName("test")
+	vp.SetConfigType("json")
+	vp.AddConfigPath(".test")
 	// err := vp.ReadInConfig()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// fmt.Println(vp.GetString("foo"))
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(vp.GetString("name"))
 
-	// vp.Set("Nama", "Alexeyka")
-	// vp.WriteConfig()
+	vp.Set("Nama", "Alexeyka")
+	vp.WriteConfig()
 
-	//fsnotify
-	// watcher, err := fsnotify.NewWatcher()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer watcher.Close()
-	// vp.OnConfigChange(func(in fsnotify.Event) {
-	// 	fmt.Printf("fileChange: %s\n", in.Name)
-	// })
-	// vp.WatchConfig()
+	// fsnotify
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer watcher.Close()
+	vp.OnConfigChange(func(in fsnotify.Event) {
+		fmt.Printf("fileChange: %s\n", in.Name)
+	})
+	vp.WatchConfig()
 
-	// for {}
 }
