@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
 
-	"github.com/joho/godotenv"
+	"github.com/spf13/viper"
 )
 
 func main() {
-	err := godotenv.Load()
+	vp := viper.New()
+	vp.SetConfigName("test")
+	vp.SetConfigType("json")
+	vp.AddConfigPath(".")
+	err := vp.ReadInConfig()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		fmt.Println(err)
 	}
-	fmt.Printf("env:%+v", os.Getenv("DSN"))
-
+	fmt.Println(vp.GetString("foo"))
 }
