@@ -4,12 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func GetDatabase() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "xhgfq4ix2kix:pscale_pw_u2xdcZYq5DLSHHBFwwk89g83NmsqeWsiRcQzjFQ9kRU@tcp(av51do8uu7vi.us-east-1.psdb.cloud)/dbtest?tls=true")
+	db, err := sql.Open("mysql", os.ExpandEnv("DTS") )
 	return db, err
 }
 
