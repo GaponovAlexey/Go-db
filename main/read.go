@@ -1,17 +1,18 @@
 package main
 
 import (
-	"conect-db/utils"
+	"conect-db/ut"
 	"fmt"
 )
 
 func main() {
 
-	data, err := utils.LoadConfig()
+	data, err := ut.GetConfigJson()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
 	fmt.Println(data)
 
 }
