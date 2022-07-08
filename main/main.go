@@ -26,7 +26,6 @@ func main() {
 
 	fmt.Println("Successfully connected to PlanetScale!")
 	//page
-	fmt.Println("start")
 	http.HandleFunc("/", HomePage)
 	http.ListenAndServe(":3000", nil)
 }
